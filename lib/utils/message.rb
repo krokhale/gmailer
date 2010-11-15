@@ -47,7 +47,7 @@ module Gmailer
     end
     
     def get_body
-      raw? ? (return TMail::Mail.parse(@raw_rfc.first.attr["RFC822"])) : (return "")
+      raw? ? (return TMail::Mail.parse(@raw_rfc.first.attr["RFC822"]).body) : (return "")
     end
     
     def get_raw
@@ -59,7 +59,7 @@ module Gmailer
     end
     
     def raw?
-      (@raw.nil? || @raw.first.nil?) ? false : true
+      (@raw_rfc.nil? || @raw_rfc.first.nil?) ? false : true
     end
     
   end

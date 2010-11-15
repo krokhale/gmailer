@@ -58,7 +58,7 @@ class Helper
     
     def messages
       mails = []
-      @imap.search(["ALL"]).each do |uid|
+      @imap.search(["SUBJECT", "hello", "NOT", "NEW"]).each do |uid|
         header = @imap.fetch(uid,'ENVELOPE')
         raw = @imap.fetch(uid,'RFC822')
         message = Message.new(header,raw, uid, self)
