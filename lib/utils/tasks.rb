@@ -36,6 +36,7 @@ class Helper
       
     end
     
+    # toggles the order from descending to ascending or vice versa.
     def toggle_order(order)
       order.match(@current_order) ? (return @current_order) : (@current_order = order;@list_asc = @list.dup;@list_desc = @list.dup.reverse)
     end

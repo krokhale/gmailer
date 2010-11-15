@@ -23,7 +23,7 @@ module Gmailer
       @raw ||= get_raw
     end
     
-    
+# moves the mail from the current folder to another folder. The main task is performed by a method in helper class.    
     def move(new_label)
       @mailer.move(@uid,new_label)
     end
