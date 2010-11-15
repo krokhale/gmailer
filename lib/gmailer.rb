@@ -10,7 +10,7 @@ module Gmailer
 
 class Gmail
   
-  attr_reader :username, :password, :success, :current_folder, :messages
+  attr_reader :username, :password, :success, :current_folder, :messages, :list_labels
   attr_accessor :mailer, :current_order
   
   
@@ -18,9 +18,9 @@ class Gmail
     @mailer ||= Gmailer::Helper.new(username,password)
     @success ||= @mailer.success
     @current_folder = 'inbox'
-    @current_order = 'ascending'
+    @current_order = @mailer.current_order
     @messages = @mailer.list
-    @counter = @messages.count
+    @list_labels = @mailer.list_labels
   end
   
 class << self
@@ -42,20 +42,13 @@ end
   end
   
   def order_by_date(order)
-    @current_order = order
+    return @mailer.toggle_order(order)
   end
   
   def get_next_message
-    return Gmailer::Helper.get_next_message
+    return @mailer.get_next_message
   end
   
-  def raw
-    return Gmailer::Helper.raw
-  end
-  
-  def move
-    return Gmailer::Helper.move
-  end
     
 end
 end

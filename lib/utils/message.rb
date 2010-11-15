@@ -7,18 +7,25 @@ module Gmailer
   
   class Message
     
-    attr_reader :date,:to,:from,:subject,:body,:raw
+    attr_reader :date,:to,:from,:subject,:body,:raw,:uid
     
     
-    def initialize(header,raw)
+    def initialize(header,raw,uid,mailer)
       @header ||= header
       @raw_rfc ||= raw
+      @uid ||= uid
+      @mailer ||= mailer
       @date ||= get_date
       @to   ||= get_to
       @from ||= get_from
       @subject ||= get_subject
       @body ||= get_body
       @raw ||= get_raw
+    end
+    
+    
+    def move(new_label)
+      @mailer.move(@uid,new_label)
     end
     
     private
