@@ -15,8 +15,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "gmailer"
   gem.homepage = "http://github.com/krokhale/gmailer"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Ruby interface to Gmail.}
+  gem.description = %Q{Helper for querying Gmail.}
   gem.email = "krishna.rokhale@gmail.com"
   gem.authors = ["krokhale"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
