@@ -20,3 +20,4 @@ class TestGmailer < Test::Unit::TestCase
     
    
 end
+
