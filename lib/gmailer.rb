@@ -11,7 +11,7 @@ module Gmailer
 #The Base class that defines the skeleton of the functions to be performed by the gem.
 class Gmail
   
-  attr_reader :username, :password, :success, :current_folder, :messages, :list_labels
+  attr_reader :username, :password, :success, :current_folder, :list_labels
   attr_accessor :mailer, :current_order
   
   
@@ -20,7 +20,6 @@ class Gmail
     @success ||= @mailer.success
     @current_folder = 'inbox'
     @current_order = @mailer.current_order
-    @messages = @mailer.list
     @list_labels = @mailer.list_labels
   end
   

@@ -4,7 +4,7 @@ module Gmailer
 
 class Helper
   
-  attr_reader :success, :list, :current_order
+  attr_reader :success, :current_order
   
   
     def initialize(username,password)
@@ -14,8 +14,8 @@ class Helper
       @password ||= password
       @imap ||= Net::IMAP.new('imap.gmail.com','993',true)
       @success = login
-      @list = messages.collect.sort_by(&:date).reverse
       @current_order = 'ascending'
+      @list = uids.reverse
       @list_asc = @list.dup
       @list_desc = @list.dup.reverse
             
@@ -23,6 +23,9 @@ class Helper
     
     def label(label)
       folder = @imap.select(label)
+      @list = uids.reverse
+      @list_asc = @list.dup
+      @list_desc = @list.dup.reverse
       return folder.data.text.strip!
     end
     
@@ -32,7 +35,7 @@ class Helper
     end
     
     def get_next_message
-      (@current_order.match('ascending')) ? (return @list_asc.pop) : (return @list_desc.pop)
+      (@current_order.match('ascending')) ? (uid = @list_asc.pop; return message(uid)) : (uid = @list_desc.pop; return message(uid))
       
     end
     
@@ -57,16 +60,16 @@ class Helper
       true if login.name == 'OK'
     end
     
-    def messages
-      mails = []
-      @imap.search(["ALL"]).each do |uid|
+    def uids
+      return @imap.search(["ALL"])
+    end
+    
+    def message(uid)
         header = @imap.fetch(uid,'ENVELOPE')
         raw = @imap.fetch(uid,'RFC822')
         message = Message.new(header,raw, uid, self)
-        mails << message
         puts "fetched mail from #{message.from}"
-      end
-      return mails
+      return message
       
     end
     
