@@ -40,11 +40,15 @@ class TestGmailer < Test::Unit::TestCase
     assert(@gmailer.current_order.match("ascending"))
     message1 = @gmailer.get_next_message
     message2 = @gmailer.get_next_message
-    assert(message1.date < message2.date)
+    assert(message1.uid == message2.uid)
+    message2.move(LABEL)
+    assert(@gmailer.get_next_message.uid != message2.uid )
     @gmailer.order_by_date("descending")
     message3 = @gmailer.get_next_message
     message4 = @gmailer.get_next_message
-    assert(message3.date > message4.date)   
+    assert(message3.uid == message4.uid)
+    message4.move(LABEL)
+    assert(@gmailer.get_next_message.uid != message4.uid )   
   end
     
     
